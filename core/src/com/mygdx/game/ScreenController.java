@@ -22,4 +22,18 @@ public class ScreenController {
         mainClient.setScreen(mainClient.mainMenuScreen);
     }
 
+    public void goToCreateRoomScreen(){
+        mainClient.setScreen(mainClient.createRoomScreen);
+    }
+
+    public void goToLobbyScreen(){
+        mainClient.setScreen(mainClient.lobbyScreen);
+    }
+
+    public void goToGameScreen(){
+        mainClient.setScreen(mainClient.gameScreen);
+    }
+
+
+
 }

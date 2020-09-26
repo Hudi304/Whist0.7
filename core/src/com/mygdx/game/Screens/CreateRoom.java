@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Client;
+import com.mygdx.game.ScreenController;
 
 public class CreateRoom implements Screen {
 
@@ -23,7 +24,8 @@ public class CreateRoom implements Screen {
     float width;
     float height;
 
-    Client mainController;
+    Client mainClient;
+    ScreenController screenController;
 
     TextField userNameTF;
     TextField roomNameTF;
@@ -34,7 +36,8 @@ public class CreateRoom implements Screen {
     public CreateRoom(Client mainController){
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
-        this.mainController = mainController;
+        this.mainClient = mainController;
+        screenController =  mainController.screenController;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class CreateRoom implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println( "Register Room Button Pressed");
+                screenController.goToLobbyScreen();
             }
         });
 
@@ -73,12 +77,12 @@ public class CreateRoom implements Screen {
 
         userNameTF.setHeight(height/10);
         userNameTF.setWidth(width/3);
-        userNameTF.setPosition((int)(width/2),(int)(height/2) , Align.center);
+        userNameTF.setPosition((int)(width/2),(int)(height/2 + createRoomBtn.getHeight()*1.1f) , Align.center);
         userNameTF.debug();
 
         roomNameTF.setHeight(height/10);
         roomNameTF.setWidth(width/3);
-        roomNameTF.setPosition((int)(width/2),(int)(height/2), Align.center);
+        roomNameTF.setPosition((int)(width/2),(int)(height/2 ), Align.center);
         roomNameTF.debug();
 
         createRoomBtn.setHeight(height/10);

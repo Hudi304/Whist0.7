@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,11 +12,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Client;
 import com.mygdx.game.ScreenController;
+import com.mygdx.game.generics.Player;
 import com.mygdx.game.generics.Room;
 
 import java.util.ArrayList;
@@ -31,13 +34,11 @@ public class Lobby implements Screen {
     Client mainController;
     ScreenController screenController;
 
-    TextField userNameTF;
-    TextField roomNameTF;
-
     //Buttons
-    TextButton createRoomBtn;
 
-    public List<Room> rooms = new ArrayList<>();
+
+
+    public List<Player> players = new ArrayList<>();
     public Table table = new Table();
 
     public Lobby(Client mainController){
@@ -45,7 +46,9 @@ public class Lobby implements Screen {
         stage = new Stage(viewport);
         this.mainController = mainController;
         screenController =  mainController.screenController;
+        System.out.println( " Created Lobby Screeem ");
     }
+
 
     @Override
     public void show() {
@@ -58,10 +61,23 @@ public class Lobby implements Screen {
         table.center();
 
         table.defaults().expandX().fill().space(5f);
-        
+
+        Player pl1 = new Player("hudy",2);
+        Player pl2 = new Player("hudy1",2);
+        Player pl3 = new Player("hudy2",2);
+        Player pl4 = new Player("hudy3",2);
+        Player pl5 = new Player("hudy4",2);
+
+        players.add(pl1);
+        players.add(pl2);
+        players.add(pl3);
+        players.add(pl4);
+        players.add(pl5);
 
 
-        refreshTable(table,this.rooms);
+
+
+        refreshTable(table,players);
 
         ScrollPane scrollPane = new ScrollPane(table,skin);
         scrollPane.setWidth(Gdx.graphics.getWidth()-200);
@@ -69,10 +85,24 @@ public class Lobby implements Screen {
         scrollPane.setPosition(50,50);
         scrollPane.debug();
 
+        TextButton startBtn = new TextButton("Start",skin);
+        startBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println( "Start Button Pressed");
+                screenController.goToGameScreen();
+            }
+        });
+        startBtn.setHeight(30);
+        startBtn.setWidth(100);
+        startBtn.setPosition(Gdx.graphics.getWidth() - startBtn.getWidth() - 20,20);
+
         TextButton backBtn = new TextButton("Back",skin);
         backBtn.setPosition(15,15);
         backBtn.setHeight(30);
         backBtn.setWidth(100);
+
+
 
         backBtn.addListener(new ChangeListener() {
             @Override
@@ -80,44 +110,41 @@ public class Lobby implements Screen {
                 screenController.goToMainMenu();
             }
         });
-        // stage.addActor(table);
+         //stage.addActor(table);
         stage.addActor(backBtn);
         stage.addActor(scrollPane);
+        stage.addActor(startBtn);
 
     }
 
-    @Override
-    public void render(float delta) {
-
-    }
-
-    public void refreshTable(Table table, List<Room> rooms){
+    public void refreshTable(Table table, List<Player> players){
+        table.clear();
         table.defaults().width(110);
 
-        System.out.println(rooms);
-
-        for (final Room rm:rooms) {
+        for (Player pl:players) {
             table.row().setActorHeight(20);
-            System.out.println("rm.getROOMID() = " + rm.getRoomID());
-
-            table.add(new Label(rm.getRoomID() + " ",skin)).width(rm.getRoomID().length()*20);//!! NETESTAT
-            table.add(new Label("[" + rm.getNrOfPlayers()+ "/" + rm.getMaxCapacity() +"]",skin)).width(50).expandX();
-            TextButton joinBtn = new TextButton("Join",skin);
-            joinBtn.setHeight(30);
-            table.add(joinBtn).width(100).pad(3);
-            joinBtn.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    screenController.goToCredentialsScreen();
-                    // mainController.goToCredentialsScreen(rm.getRoomID());
-                }
-            });
+            Label label = new Label(pl.getNickName() + " ",skin);
+            label.setAlignment(Align.center);
+            table.add(label);
             table.row();
         }
     }
 
     @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0.8f,0.8f, 0.8f, 1.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
     public void resize(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+
+        refreshTable(table,players);
 
     }
 

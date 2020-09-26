@@ -116,29 +116,35 @@ public class JoinRoom implements Screen {
 
     @Override
     public void pause() {
+        System.out.println("pause Join Room");
+        refreshTable(table,this.rooms);
 
     }
 
     @Override
     public void resume() {
+        System.out.println("resume Join Room");
+        refreshTable(table,this.rooms);
 
     }
 
     @Override
     public void hide() {
-
+        System.out.println("hide Join Room");
+        refreshTable(table,this.rooms);
     }
 
     @Override
     public void dispose() {
+        System.out.println("Dispose Join Room");
+        refreshTable(table,this.rooms);
         stage.dispose();
         skin.dispose();
     }
 
     public void refreshTable(Table table, List<Room> rooms){
+        table.clear();
         table.defaults().width(110);
-
-        System.out.println(rooms);
 
         for (final Room rm:rooms) {
             table.row().setActorHeight(20);

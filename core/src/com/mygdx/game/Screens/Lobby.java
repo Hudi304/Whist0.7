@@ -2,7 +2,6 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,8 +21,7 @@ import com.mygdx.game.generics.Room;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoinRoom implements Screen {
-
+public class Lobby implements Screen {
     Stage stage;
     Skin skin;
     Viewport viewport;
@@ -39,11 +37,10 @@ public class JoinRoom implements Screen {
     //Buttons
     TextButton createRoomBtn;
 
-
     public List<Room> rooms = new ArrayList<>();
     public Table table = new Table();
 
-    public JoinRoom(Client mainController){
+    public Lobby(Client mainController){
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
         this.mainController = mainController;
@@ -61,15 +58,7 @@ public class JoinRoom implements Screen {
         table.center();
 
         table.defaults().expandX().fill().space(5f);
-        Room rm1 = new Room("rm1", 8 , 0);
-        Room rm2 = new Room("rm2", 6 , 1);
-        Room rm3 = new Room("rm3", 3 , 1);
-        Room rm4 = new Room("rm4", 2 , 1);
-
-        rooms.add(rm1);
-        rooms.add(rm2);
-        rooms.add(rm3);
-        rooms.add(rm4);
+        
 
 
         refreshTable(table,this.rooms);
@@ -88,51 +77,18 @@ public class JoinRoom implements Screen {
         backBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-               screenController.goToMainMenu();
+                screenController.goToMainMenu();
             }
         });
         // stage.addActor(table);
         stage.addActor(backBtn);
         stage.addActor(scrollPane);
 
-
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.8f,0.8f, 0.8f, 1.0f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        //todo schimba constantele cu rezolutia din resize
-        //todo de facut la tot resize
-        stage.getViewport().update(width, height,true);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-        skin.dispose();
     }
 
     public void refreshTable(Table table, List<Room> rooms){
@@ -160,11 +116,28 @@ public class JoinRoom implements Screen {
         }
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    @Override
+    public void resize(int width, int height) {
+
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

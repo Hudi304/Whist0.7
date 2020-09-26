@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Client;
+import com.mygdx.game.Constants;
 import com.mygdx.game.ScreenController;
 
 public class Credentials implements Screen {
@@ -44,7 +45,7 @@ public class Credentials implements Screen {
 
     @Override
     public void show() {
-        skin = new Skin(Gdx.files.internal("skin.json"));
+        skin = new Skin(Gdx.files.internal(Constants.skinJsonString));
 
         userNameTF = new TextField(" ", skin);
         userNameTF.setAlignment(Align.center);

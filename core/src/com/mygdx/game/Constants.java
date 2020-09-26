@@ -9,6 +9,8 @@ public class Constants {
 
     public final static float CARD_HAND_Y = 5;
 
+    public final static String skinJsonString  = "clean-crispy-ui.json";
+
 
    //public final static String serverHTTP = "https://myapp1.serverless.social";
    public final static String serverHTTP = "http://localhost:8080";

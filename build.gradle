@@ -135,6 +135,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        implementation group: 'io.socket', name: 'socket.io-client', version: '1.0.0';
         
     }
 }

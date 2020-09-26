@@ -10,10 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Client;
+import com.mygdx.game.RootController;
 
 public class CreateRoom implements Screen {
 
@@ -23,7 +22,7 @@ public class CreateRoom implements Screen {
     float width;
     float height;
 
-    Client mainController;
+    RootController mainController;
 
     TextField userNameTF;
     TextField roomNameTF;
@@ -31,7 +30,7 @@ public class CreateRoom implements Screen {
     //Buttons
     TextButton createRoomBtn;
 
-    public CreateRoom(Client mainController){
+    public CreateRoom(RootController mainController){
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
         this.mainController = mainController;

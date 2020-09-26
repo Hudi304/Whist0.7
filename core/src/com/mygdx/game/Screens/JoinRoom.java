@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Client;
+import com.mygdx.game.RootController;
 import com.mygdx.game.ScreenController;
 import com.mygdx.game.generics.Room;
 
@@ -30,7 +30,7 @@ public class JoinRoom implements Screen {
     float width;
     float height;
 
-    Client mainController;
+    RootController mainController;
     ScreenController screenController;
 
     TextField userNameTF;
@@ -43,7 +43,7 @@ public class JoinRoom implements Screen {
     public List<Room> rooms = new ArrayList<>();
     public Table table = new Table();
 
-    public JoinRoom(Client mainController){
+    public JoinRoom(RootController mainController){
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
         this.mainController = mainController;

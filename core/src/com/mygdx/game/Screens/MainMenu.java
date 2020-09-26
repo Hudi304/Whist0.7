@@ -8,11 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Client;
+import com.mygdx.game.RootController;
 import com.mygdx.game.ScreenController;
 
 public class MainMenu implements Screen {
@@ -23,7 +21,7 @@ public class MainMenu implements Screen {
         float width;
         float height;
 
-        Client mainController;
+        RootController mainController;
         ScreenController screenController;
 
         //Buttons
@@ -32,7 +30,7 @@ public class MainMenu implements Screen {
         TextButton optionsBtn;
         TextButton exitBtn;
 
-       public MainMenu(Client mainController){
+       public MainMenu(RootController mainController){
            viewport = new ScreenViewport();
            stage = new Stage(viewport);
            this.mainController = mainController;

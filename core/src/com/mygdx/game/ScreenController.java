@@ -1,12 +1,15 @@
 package com.mygdx.game;
 
+
 public class ScreenController {
 
-    Client mainClient;
+    RootController mainClient;
+
+
 
     //todo orice ar fi legat de trecerea itre Screenrui ar trebui sa fie aici
 
-    public ScreenController(Client mainClient){
+    public ScreenController(RootController mainClient){
         this.mainClient =mainClient;
     }
 
@@ -18,8 +21,5 @@ public class ScreenController {
         mainClient.setScreen(mainClient.joinRoomScreen);
     }
 
-    public void goToMainMenu(){
-        mainClient.setScreen(mainClient.mainMenuScreen);
-    }
 
 }

@@ -119,7 +119,7 @@ public class GameScreen implements Screen {
         System.out.println("[GameScreen] : Show");
 
 
-        skin = new Skin(Gdx.files.internal("skin.json"));
+        skin = new Skin(Gdx.files.internal(Constants.skinJsonString));
         Gdx.input.setInputProcessor(stage);
 
 

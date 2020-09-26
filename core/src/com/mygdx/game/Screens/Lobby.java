@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Client;
+import com.mygdx.game.Constants;
 import com.mygdx.game.ScreenController;
 import com.mygdx.game.generics.Player;
 import com.mygdx.game.generics.Room;
@@ -53,7 +54,7 @@ public class Lobby implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
-        skin = new Skin(Gdx.files.internal("skin.json"));
+        skin = new Skin(Gdx.files.internal(Constants.skinJsonString));
         Gdx.input.setInputProcessor(stage);
 
         table.debug();
@@ -73,9 +74,6 @@ public class Lobby implements Screen {
         players.add(pl3);
         players.add(pl4);
         players.add(pl5);
-
-
-
 
         refreshTable(table,players);
 
@@ -101,8 +99,6 @@ public class Lobby implements Screen {
         backBtn.setPosition(15,15);
         backBtn.setHeight(30);
         backBtn.setWidth(100);
-
-
 
         backBtn.addListener(new ChangeListener() {
             @Override

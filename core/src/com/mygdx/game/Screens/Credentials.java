@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Client;
+import com.mygdx.game.ScreenController;
 
 public class Credentials implements Screen {
 
@@ -24,17 +25,21 @@ public class Credentials implements Screen {
     float height;
 
     Client mainController;
+    ScreenController screenController;
 
     TextField userNameTF;
     TextField roomNameTF;
 
     //Buttons
-    TextButton createRoomBtn;
+    TextButton registerRoomBtn;
 
     public Credentials(Client mainController){
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
         this.mainController = mainController;
+        this.screenController = mainController.screenController;
+
+
     }
 
     @Override
@@ -53,15 +58,16 @@ public class Credentials implements Screen {
             }
         });
 
-        createRoomBtn = new TextButton("Register",skin);
-        createRoomBtn.addListener(new ChangeListener() {
+        registerRoomBtn = new TextButton("Register",skin);
+        registerRoomBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println( "Register Room Button Pressed");
+                screenController.goToLobbyScreen();
             }
         });
 
-        stage.addActor(createRoomBtn);
+        stage.addActor(registerRoomBtn);
         stage.addActor(userNameTF);
         //stage.addActor(roomNameTF);
 
@@ -81,10 +87,10 @@ public class Credentials implements Screen {
 //        roomNameTF.setPosition((int)(width/2),(int)(height/2), Align.center);
 //        roomNameTF.debug();
 
-        createRoomBtn.setHeight(height/10);
-        createRoomBtn.setWidth(width/5 - 20);
-        createRoomBtn.setPosition((int)(width/2),(int)(height/2 - createRoomBtn.getHeight()*1.1f), Align.center);
-        createRoomBtn.debug();
+        registerRoomBtn.setHeight(height/10);
+        registerRoomBtn.setWidth(width/5 - 20);
+        registerRoomBtn.setPosition((int)(width/2),(int)(height/2 - registerRoomBtn.getHeight()*1.1f), Align.center);
+        registerRoomBtn.debug();
     }
 
     @Override

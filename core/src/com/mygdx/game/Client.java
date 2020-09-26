@@ -3,8 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.mygdx.game.Screens.CreateRoom;
 import com.mygdx.game.Screens.Credentials;
+import com.mygdx.game.Screens.GameScreen;
 import com.mygdx.game.Screens.JoinRoom;
+import com.mygdx.game.Screens.Lobby;
 import com.mygdx.game.Screens.MainMenu;
 
 public class Client extends Game {
@@ -12,14 +15,14 @@ public class Client extends Game {
 	public float screenWidth;
 	public float screenHeight;
 
-
 	public ScreenController screenController;
 
 	MainMenu mainMenuScreen;
 	Credentials credentialsScreen;
 	JoinRoom joinRoomScreen;
-
-
+	CreateRoom createRoomScreen;
+	Lobby lobbyScreen;
+	GameScreen gameScreen;
 
 	@Override
 	public void dispose() {
@@ -36,6 +39,10 @@ public class Client extends Game {
 		mainMenuScreen =  new MainMenu(this);
 		credentialsScreen =  new Credentials(this);
 		joinRoomScreen =  new JoinRoom(this);
+		createRoomScreen = new CreateRoom(this);
+		lobbyScreen = new Lobby(this);
+		gameScreen =  new GameScreen(this);
+
 
 		setScreen(mainMenuScreen);
 	}

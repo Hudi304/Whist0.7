@@ -12,18 +12,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Client;
 import com.mygdx.game.ScreenController;
+import com.mygdx.game.generics.Player;
 import com.mygdx.game.generics.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoinRoom implements Screen {
-
+public class Lobby implements Screen {
     Stage stage;
     Skin skin;
     Viewport viewport;
@@ -33,22 +34,21 @@ public class JoinRoom implements Screen {
     Client mainController;
     ScreenController screenController;
 
-    TextField userNameTF;
-    TextField roomNameTF;
-
     //Buttons
-    TextButton createRoomBtn;
 
 
-    public List<Room> rooms = new ArrayList<>();
+
+    public List<Player> players = new ArrayList<>();
     public Table table = new Table();
 
-    public JoinRoom(Client mainController){
+    public Lobby(Client mainController){
         viewport = new ScreenViewport();
         stage = new Stage(viewport);
         this.mainController = mainController;
         screenController =  mainController.screenController;
+        System.out.println( " Created Lobby Screeem ");
     }
+
 
     @Override
     public void show() {
@@ -61,18 +61,23 @@ public class JoinRoom implements Screen {
         table.center();
 
         table.defaults().expandX().fill().space(5f);
-        Room rm1 = new Room("rm1", 8 , 0);
-        Room rm2 = new Room("rm2", 6 , 1);
-        Room rm3 = new Room("rm3", 3 , 1);
-        Room rm4 = new Room("rm4", 2 , 1);
 
-        rooms.add(rm1);
-        rooms.add(rm2);
-        rooms.add(rm3);
-        rooms.add(rm4);
+        Player pl1 = new Player("hudy",2);
+        Player pl2 = new Player("hudy1",2);
+        Player pl3 = new Player("hudy2",2);
+        Player pl4 = new Player("hudy3",2);
+        Player pl5 = new Player("hudy4",2);
+
+        players.add(pl1);
+        players.add(pl2);
+        players.add(pl3);
+        players.add(pl4);
+        players.add(pl5);
 
 
-        refreshTable(table,this.rooms);
+
+
+        refreshTable(table,players);
 
         ScrollPane scrollPane = new ScrollPane(table,skin);
         scrollPane.setWidth(Gdx.graphics.getWidth()-200);
@@ -80,97 +85,86 @@ public class JoinRoom implements Screen {
         scrollPane.setPosition(50,50);
         scrollPane.debug();
 
+        TextButton startBtn = new TextButton("Start",skin);
+        startBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println( "Start Button Pressed");
+                screenController.goToGameScreen();
+            }
+        });
+        startBtn.setHeight(30);
+        startBtn.setWidth(100);
+        startBtn.setPosition(Gdx.graphics.getWidth() - startBtn.getWidth() - 20,20);
+
         TextButton backBtn = new TextButton("Back",skin);
         backBtn.setPosition(15,15);
         backBtn.setHeight(30);
         backBtn.setWidth(100);
 
+
+
         backBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-               screenController.goToMainMenu();
+                screenController.goToMainMenu();
             }
         });
-        // stage.addActor(table);
+         //stage.addActor(table);
         stage.addActor(backBtn);
         stage.addActor(scrollPane);
+        stage.addActor(startBtn);
 
+    }
 
+    public void refreshTable(Table table, List<Player> players){
+        table.clear();
+        table.defaults().width(110);
+
+        for (Player pl:players) {
+            table.row().setActorHeight(20);
+            Label label = new Label(pl.getNickName() + " ",skin);
+            label.setAlignment(Align.center);
+            table.add(label);
+            table.row();
+        }
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.8f,0.8f, 0.8f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         stage.act(delta);
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        //todo schimba constantele cu rezolutia din resize
-        //todo de facut la tot resize
-        stage.getViewport().update(width, height,true);
+        this.width = width;
+        this.height = height;
+
+
+        refreshTable(table,players);
+
     }
 
     @Override
     public void pause() {
-        System.out.println("pause Join Room");
-        refreshTable(table,this.rooms);
 
     }
 
     @Override
     public void resume() {
-        System.out.println("resume Join Room");
-        refreshTable(table,this.rooms);
 
     }
 
     @Override
     public void hide() {
-        System.out.println("hide Join Room");
-        refreshTable(table,this.rooms);
+
     }
 
     @Override
     public void dispose() {
-        System.out.println("Dispose Join Room");
-        refreshTable(table,this.rooms);
-        stage.dispose();
-        skin.dispose();
-    }
 
-    public void refreshTable(Table table, List<Room> rooms){
-        table.clear();
-        table.defaults().width(110);
-
-        for (final Room rm:rooms) {
-            table.row().setActorHeight(20);
-            System.out.println("rm.getROOMID() = " + rm.getRoomID());
-
-            table.add(new Label(rm.getRoomID() + " ",skin)).width(rm.getRoomID().length()*20);//!! NETESTAT
-            table.add(new Label("[" + rm.getNrOfPlayers()+ "/" + rm.getMaxCapacity() +"]",skin)).width(50).expandX();
-            TextButton joinBtn = new TextButton("Join",skin);
-            joinBtn.setHeight(30);
-            table.add(joinBtn).width(100).pad(3);
-            joinBtn.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    screenController.goToCredentialsScreen();
-                    // mainController.goToCredentialsScreen(rm.getRoomID());
-                }
-            });
-            table.row();
-        }
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
     }
 }

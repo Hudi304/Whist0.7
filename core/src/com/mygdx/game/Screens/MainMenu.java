@@ -50,7 +50,7 @@ public class MainMenu implements Screen {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     System.out.println( "Create Room Button Pressed");
-                    screenController.goToCredentialsScreen();
+                    screenController.goToCreateRoomScreen();
                 }
             });
             joinBtn = new TextButton("JoinRoom",skin);
